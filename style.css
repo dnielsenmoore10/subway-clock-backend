@@ -1,15 +1,21 @@
 body {
     background-color: #111;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* FIX: Uses dynamic viewport height to account for mobile Safari/Chrome address bars */
-    min-height: 100vh;
-    min-height: 100dvh; 
     margin: 0;
+    padding: 0;
+    
+    /* Strict grid centering to overwrite standard Safari flex behavior */
+    display: grid;
+    place-items: center;
+    align-content: center;
+    
+    /* Force body to take up the true height of the dynamic viewport */
+    width: 100vw;
+    height: 100vh;
+    height: 100dvh; 
+    
     font-family: "Futura", "Futura-Medium", "Century Gothic", "Josefin Sans", sans-serif;
     text-transform: uppercase;
-    overflow: hidden; /* Stops accidental screen bouncing on touch swipe */
+    overflow: hidden;
 }
 
 .led-sign {
