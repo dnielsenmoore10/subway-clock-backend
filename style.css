@@ -1,14 +1,13 @@
 body {
     background-color: #111;
     margin: 0;
-    padding: 0;
+    padding: 20px; /* Gives a nice safe framing margin on mobile phones */
+    box-sizing: border-box;
     
-    /* Strict grid centering to overwrite standard Safari flex behavior */
-    display: grid;
-    place-items: center;
-    align-content: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     
-    /* Force body to take up the true height of the dynamic viewport */
     width: 100vw;
     height: 100vh;
     height: 100dvh; 
@@ -20,9 +19,13 @@ body {
 
 .led-sign {
     background-color: #000;
-    width: 640px;  
-    height: 320px;
-    padding: 30px 40px; 
+    /* FIX: Instead of hardcoded 640px, it adapts to the phone width but caps at 640px on desktop */
+    width: 100%;
+    max-width: 640px;  
+    /* Maintain a perfect cinema widescreen aspect ratio naturally */
+    aspect-ratio: 2 / 1; 
+    
+    padding: 5%; /* Fluid padding that shrinks with the screen scale */
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
@@ -30,19 +33,9 @@ body {
     position: relative;
     overflow: hidden;
     box-shadow: 0 0 30px rgba(0,0,0,0.8);
-    flex-shrink: 0; /* Prevents the sign from warping shape */
 }
 
-/* THE MOBILE CENTERING & SCALING MAGIC TRICK */
-@media (max-width: 660px) {
-    .led-sign {
-        /* Automatically shrinks the entire box and typography proportionally to fit any phone width */
-        transform: scale(calc(90vw / 640)); 
-        transform-origin: center center;
-    }
-}
-
-/* HIGH-DENSITY DIODE MASK (Kept subtle so the custom geometry of Futura shines through) */
+/* HIGH-DENSITY DIODE MASK */
 .led-sign::after {
     content: " ";
     display: block;
@@ -73,48 +66,58 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    padding-left: 20px;
+    padding-left: 4%;
 }
 
-/* Clean, bold typographic bullets matching the geometric aesthetic */
+/* Scalable typography units (vw) so text shrinks seamlessly alongside the box container */
 .route-bullet {
     display: inline-block;
-    width: 80px;
-    height: 80px;
+    width: 12vw;
+    height: 12vw;
+    max-width: 80px;
+    max-height: 80px;
     border-radius: 50%;
     text-align: center;
-    line-height: 80px; 
-    font-size: 3.5rem;
+    /* Uses container query style fallback to keep letter perfectly centered inside the circle */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(1.5rem + 2vw);
     font-weight: 800;
-    color: #FFF; /* Crisp white letters inside the colored circles for high editorial contrast */
+    color: #FFF;
+}
+
+/* Restrict the bullet scaling on desktop displays */
+@media (min-width: 640px) {
+    .route-bullet { font-size: 3.5rem; width: 80px; height: 80px; }
 }
 
 .route-f { background-color: #E21A22; }
 .route-g { background-color: #00A65C; }
 
-/* THE WES ANDERSON LOOK: High-contrast, beautifully tracked geometric caps */
 .destination-header {
     color: #5c9eff; 
-    font-size: 2.8rem;
-    font-weight: 800;
-    line-height: 1;
-    letter-spacing: 6px; /* Generous letter-spacing (tracking) */
-}
-
-.arrival-times {
-    color: #ffdf43; 
-    font-size: 2.8rem;
+    font-size: calc(1.2rem + 2vw);
     font-weight: 800;
     line-height: 1;
     letter-spacing: 4px;
-    margin-top: 10px; /* Slight breathing room between lines */
 }
+@media (min-width: 640px) { .destination-header { font-size: 2.8rem; } }
 
-/* A solid, elegant divider line instead of jagged dots to fit the editorial vibe */
+.arrival-times {
+    color: #ffdf43; 
+    font-size: calc(1.2rem + 2vw);
+    font-weight: 800;
+    line-height: 1;
+    letter-spacing: 3px;
+    margin-top: 2%;
+}
+@media (min-width: 640px) { .arrival-times { font-size: 2.8rem; } }
+
 .dotted-divider {
     border-bottom: 3px solid #1d46cc;
     width: 100%;
-    margin: 5px 0;
+    margin: 1% 0;
     position: relative;
     z-index: 1;
 }
