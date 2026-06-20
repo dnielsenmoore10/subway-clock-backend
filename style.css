@@ -1,17 +1,14 @@
 body {
     background-color: #111;
     margin: 0;
-    padding: 20px; /* Gives a nice safe framing margin on mobile phones */
+    padding: 20px; 
     box-sizing: border-box;
-    
     display: flex;
     justify-content: center;
     align-items: center;
-    
     width: 100vw;
     height: 100vh;
     height: 100dvh; 
-    
     font-family: "Futura", "Futura-Medium", "Century Gothic", "Josefin Sans", sans-serif;
     text-transform: uppercase;
     overflow: hidden;
@@ -19,23 +16,18 @@ body {
 
 .led-sign {
     background-color: #000;
-    /* FIX: Instead of hardcoded 640px, it adapts to the phone width but caps at 640px on desktop */
     width: 100%;
     max-width: 640px;  
-    /* Maintain a perfect cinema widescreen aspect ratio naturally */
     aspect-ratio: 2 / 1; 
-    
-    padding: 5%; /* Fluid padding that shrinks with the screen scale */
+    padding: 4% 5%; 
     box-sizing: border-box;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     position: relative;
-    overflow: hidden;
-    box-shadow: 0 0 30px rgba(0,0,0,0.8);
+    overflow: hidden; 
 }
 
-/* HIGH-DENSITY DIODE MASK */
 .led-sign::after {
     content: " ";
     display: block;
@@ -47,10 +39,25 @@ body {
     background-image: radial-gradient(circle, rgba(0,0,0,0) 50%, rgba(0,0,0,0.25) 70%);
 }
 
+/* NEW STATION HEADER DESIGN */
+.station-title {
+    color: #FFF; /* White */
+    font-size: calc(0.8rem + 1.5vw);
+    font-weight: 900;
+    letter-spacing: 6px;
+    text-align: center;
+    border-bottom: 3px double #1d46cc; /* Vintage double accent rule line */
+    padding-bottom: 2%;
+    margin-bottom: 1%;
+    z-index: 1;
+    position: relative;
+}
+@media (min-width: 640px) { .station-title { font-size: 2rem; } }
+
 .train-section {
     display: flex;
     align-items: center;
-    height: 45%;
+    height: 35%; /* Tuned down from 45% to cleanly accommodate the station name */
     position: relative;
     z-index: 1;
 }
@@ -69,55 +76,47 @@ body {
     padding-left: 4%;
 }
 
-/* Scalable typography units (vw) so text shrinks seamlessly alongside the box container */
 .route-bullet {
-    display: inline-block;
-    width: 12vw;
-    height: 12vw;
-    max-width: 80px;
-    max-height: 80px;
-    border-radius: 50%;
-    text-align: center;
-    /* Uses container query style fallback to keep letter perfectly centered inside the circle */
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: calc(1.5rem + 2vw);
+    width: 11vw;
+    height: 11vw;
+    max-width: 70px;
+    max-height: 70px;
+    border-radius: 50%;
+    font-size: calc(1.2rem + 1.5vw);
     font-weight: 800;
     color: #FFF;
 }
-
-/* Restrict the bullet scaling on desktop displays */
-@media (min-width: 640px) {
-    .route-bullet { font-size: 3.5rem; width: 80px; height: 80px; }
-}
+@media (min-width: 640px) { .route-bullet { font-size: 3rem; width: 70px; height: 70px; } }
 
 .route-f { background-color: #E21A22; }
 .route-g { background-color: #00A65C; }
 
 .destination-header {
     color: #5c9eff; 
-    font-size: calc(1.2rem + 2vw);
+    font-size: calc(1rem + 1.5vw);
     font-weight: 800;
     line-height: 1;
     letter-spacing: 4px;
 }
-@media (min-width: 640px) { .destination-header { font-size: 2.8rem; } }
+@media (min-width: 640px) { .destination-header { font-size: 2.4rem; } }
 
 .arrival-times {
     color: #ffdf43; 
-    font-size: calc(1.2rem + 2vw);
+    font-size: calc(1rem + 1.5vw);
     font-weight: 800;
     line-height: 1;
     letter-spacing: 3px;
-    margin-top: 2%;
+    margin-top: 1%;
 }
-@media (min-width: 640px) { .arrival-times { font-size: 2.8rem; } }
+@media (min-width: 640px) { .arrival-times { font-size: 2.4rem; } }
 
 .dotted-divider {
     border-bottom: 3px solid #1d46cc;
     width: 100%;
-    margin: 1% 0;
+    margin: 0;
     position: relative;
     z-index: 1;
 }

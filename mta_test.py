@@ -30,11 +30,21 @@ def fetch_feed_arrivals(url, route_filter):
     except Exception as e:
         print(f"Error: {e}")
     arrivals.sort()
-    return arrivals[:3] # Pull up to the top 3 arrivals for a clean layout
+    return arrivals[:3] # Keep layout clean with top 3 arrivals
 
 @app.route('/api/subway', methods=['GET'])
 def get_subway_times():
+    station_names = {
+        "F27": "FT HAMILTON PKWY",
+        "F23": "BERGEN ST",
+        "F14": "4 AV-9 ST"
+    }
+
+    parent_id = TARGET_STATION[:3] 
+    current_station_name = station_names.get(parent_id, "UNKNOWN STATION")
+    
     return jsonify({
+        "station_name": current_station_name,
         "f_trains": fetch_feed_arrivals(F_LINE_URL, "F"),
         "g_trains": fetch_feed_arrivals(G_LINE_URL, "G")
     })

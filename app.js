@@ -1,23 +1,26 @@
-// Pointing directly to your live cloud instance endpoint!
-const LOCAL_SERVER_URL = "https://subway-clock-backend.onrender.com/api/subway";
+const LOCAL_SERVER_URL = "http://127.0.0.1:5000/api/subway";
+
 async function updateSubwayTimes() {
-    console.log("Polling for comma-separated matrix array boards...");
+    console.log("Polling for subway times...");
     try {
         const response = await fetch(LOCAL_SERVER_URL);
         const data = await response.json();
-
-        // Format and print the F train times array joined with a comma separator
-        if (data.f_trains && data.f_trains.length > 0) {
-            document.getElementById("f-times").innerText = data.f_trains.join(",");
-        } else {
-            document.getElementById("f-times").innerText = "No Trains";
+        
+        // Inject the dynamic station name
+        if (document.getElementById('station-name')) {
+            document.getElementById('station-name').innerText = data.station_name;
         }
 
-        // Format and print the G train times array joined with a comma separator
-        if (data.g_trains && data.g_trains.length > 0) {
-            document.getElementById("g-times").innerText = data.g_trains.join(",");
-        } else {
-            document.getElementById("g-times").innerText = "No Trains";
+        // Inject the F train times into the f-uptown slot
+        if (document.getElementById('f-times')) {
+            document.getElementById('f-times').innerText = 
+                (data.f_trains && data.f_trains.length > 0) ? data.f_trains.join(", ") : "No Trains";
+        }
+
+        // Inject the G train times into the g-uptown slot
+        if (document.getElementById('g-times')) {
+            document.getElementById('g-times').innerText = 
+                (data.g_trains && data.g_trains.length > 0) ? data.g_trains.join(", ") : "No Trains";
         }
 
     } catch (error) {
@@ -25,5 +28,6 @@ async function updateSubwayTimes() {
     }
 }
 
+// Run immediately on page load, then poll every 30 seconds
 updateSubwayTimes();
 setInterval(updateSubwayTimes, 30000);
