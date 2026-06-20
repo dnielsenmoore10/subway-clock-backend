@@ -57,7 +57,8 @@ body {
 .train-section {
     display: flex;
     align-items: center;
-    height: 35%; /* Tuned down from 45% to cleanly accommodate the station name */
+    flex-grow: 1; /* Removes hardcoded 35% height and lets them split space dynamically */
+    padding: 1% 0; /* Gives rows breathable vertical breathing room */
     position: relative;
     z-index: 1;
 }
@@ -96,27 +97,28 @@ body {
 
 .destination-header {
     color: #5c9eff; 
-    font-size: calc(1rem + 1.5vw);
+    font-size: calc(0.9rem + 1.2vw); /* Slightly scaled down from 1.5vw to prevent collision */
     font-weight: 800;
-    line-height: 1;
+    line-height: 1.2; /* Increased from 1 to give text headroom */
     letter-spacing: 4px;
 }
-@media (min-width: 640px) { .destination-header { font-size: 2.4rem; } }
+
+@media (min-width: 640px) { .destination-header { font-size: 2.2rem; } }
 
 .arrival-times {
     color: #ffdf43; 
-    font-size: calc(1rem + 1.5vw);
+    font-size: calc(0.9rem + 1.2vw); /* Balanced alongside the header font-size */
     font-weight: 800;
-    line-height: 1;
+    line-height: 1.2; 
     letter-spacing: 3px;
-    margin-top: 1%;
+    margin-top: 4px; /* Creates explicit separation between text lines */
 }
-@media (min-width: 640px) { .arrival-times { font-size: 2.4rem; } }
+@media (min-width: 640px) { .arrival-times { font-size: 2.2rem; } }
 
 .dotted-divider {
     border-bottom: 3px solid #1d46cc;
     width: 100%;
-    margin: 0;
+    margin: 1% 0; /* Adds safe, clean margins above and below the divider line */
     position: relative;
     z-index: 1;
 }
