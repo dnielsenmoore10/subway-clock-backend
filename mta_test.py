@@ -50,4 +50,5 @@ def get_subway_times():
     })
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    # Adding host='0.0.0.0' lets devices on your Wi-Fi connect
+    app.run(host='0.0.0.0', port=5001, debug=True)
