@@ -1,5 +1,6 @@
 // Replace with your actual MacBook network IP address:
-const LOCAL_SERVER_URL = "http://192.168.1.157:5001/api/subway";
+//const LOCAL_SERVER_URL = "http://192.168.1.157:5001/api/subway";
+const LOCAL_SERVER_URL = "https://subway-clock-backend.onrender.com/api/subway";
 
 async function updateSubwayTimes() {
     console.log("Polling for subway times...");
